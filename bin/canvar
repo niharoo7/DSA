@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+
+import sys
+import os
+
+
+foot=__file__
+MAIN_PATH=os.path.dirname(os.path.dirname(os.path.abspath(foot)))
+sys.path.append(MAIN_PATH)
+sys.path.insert(0,MAIN_PATH+os.sep+os.pardir+os.sep+'canvar')
+
+path=os.path.dirname(os.path.realpath(__file__)) 
+
+from canvar.canvar_parser import canvar_parser
+from canvar.canvar import canvar
+
+def main():
+	canvar_parser_obj=canvar_parser()
+	
+	canvar_obj=canvar()
+	options=canvar_parser_obj.parser_option()
+	print options	
+	try:
+		#if options.help:
+		#	canvar_obj.canvar_help()
+		
+		if options.frameworks:
+			canvar_obj.canvar_frameworks()
+		elif options.version:
+			canvar_obj.canvar_version()
+					
+	except KeyboardInterrupt:
+		print "terminating ...."
+		sys.exit(130)	
+
+if __name__ == '__main__':
+	main()
+
